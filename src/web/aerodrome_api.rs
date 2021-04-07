@@ -1,6 +1,12 @@
-use rocket::get;
+use rocket::{get, State};
+use sqlx::SqlitePool;
 
-#[get("/")]              // <- route attribute
-pub fn world() -> &'static str {  // <- request handler
+#[get("/")]
+pub fn world() -> &'static str {
     "hello, world!"
+}
+
+#[get("/")]
+pub fn state(pool: State<SqlitePool>) -> &'static str {
+    todo!("Use the state somehow")
 }
