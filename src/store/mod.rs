@@ -1,4 +1,4 @@
-pub(crate) mod album;
+pub mod album;
 
 use sqlx::{Database, Pool};
 

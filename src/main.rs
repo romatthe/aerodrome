@@ -1,13 +1,7 @@
-use crate::settings::Settings;
 use std::error::Error;
-use crate::app::AerodromeApp;
 use sqlx::Sqlite;
-
-mod app;
-mod model;
-mod settings;
-mod store;
-mod web;
+use aerodrome_core::settings::Settings;
+use aerodrome_core::app::AerodromeApp;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>>{

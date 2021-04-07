@@ -1,4 +1,4 @@
-use sqlx::{SqlitePool, Database};
+use sqlx::Database;
 use crate::store::album::AlbumRepository;
 
 mod aerodrome_api;

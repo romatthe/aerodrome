@@ -15,3 +15,15 @@ futures = "0.3"
 rocket = { git = "https://github.com/SergioBenitez/Rocket" }
 tokio = { version = "1.4.0", features = ["full"] }
 sqlx = { version = "0.5", features = [ "runtime-tokio-rustls", "sqlite", "migrate" ] }
+
+[lib]
+name = "aerodrome_core"
+path = "src/lib.rs"
+
+[[bin]]
+name = "aerodrome"
+path = "src/main.rs"
+
+[[test]]
+name = "integration"
+path = "tests/lib.rs"

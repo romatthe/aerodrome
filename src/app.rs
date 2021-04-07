@@ -1,14 +1,20 @@
 use futures::FutureExt;
 use tokio::{signal, select};
 use crate::web::AerodromeWebServer;
-use sqlx::{Acquire, SqlitePool, Database, Pool};
+use sqlx::{Database, Pool};
 use crate::store::album::AlbumRepository;
 use crate::store::Repository;
-use sqlx::migrate::Migrate;
+
+// pub type DbPool = Box<Pool<dyn Database>>;
 
 /// The Aerodrome App runs all required services and background processes
 pub struct AerodromeApp<D: Database> {
     web: AerodromeWebServer<D>,
+    // pool: Box<Pool<dyn Database>>,
+}
+
+fn setup_db() -> Box<Pool<dyn Database>> {
+    todo!()
 }
 
 impl <D: Database> AerodromeApp<D> {
@@ -16,7 +22,7 @@ impl <D: Database> AerodromeApp<D> {
         where <D as sqlx::Database>::Connection: sqlx::migrate::Migrate
     {
         // TODO: Proper error handling, use database string from configuration
-        let mut pool = Pool::connect("sqlite::memory:").await.unwrap();
+        let pool = Pool::connect("sqlite::memory:").await.unwrap();
 
         // Repos
         let album_repo = AlbumRepository::new(pool.clone());
@@ -30,7 +36,8 @@ impl <D: Database> AerodromeApp<D> {
         let web = AerodromeWebServer::init(album_repo);
 
         AerodromeApp {
-            web
+            web,
+            pool: Box::new(pool),
         }
     }
 
