@@ -11,3 +11,6 @@ serde = { version = "1.0.125", features = ["derive"] }
 # Logging
 log = "0.4.0"
 env_logger = "0.8.3"
+futures = "0.3"
+rocket = { git = "https://github.com/SergioBenitez/Rocket" }
+tokio = { version = "1.4.0", features = ["full"] }
