@@ -1,9 +1,9 @@
-use std::error::Error;
-use aerodrome_core::settings::Settings;
 use aerodrome_core::app::AerodromeApp;
+use aerodrome_core::settings::Settings;
+use std::error::Error;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn Error>>{
+async fn main() -> Result<(), Box<dyn Error>> {
     // env_logger::init();
     log::info!("Starting up!");
 

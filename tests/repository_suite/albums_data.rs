@@ -7,13 +7,11 @@ lazy_static! {
         name: "Sgt Peppers".to_string(),
         artist: "The Beatles".to_string()
     };
-
     pub static ref ALBUM_ABBEY: Album = Album {
         id: 2,
         name: "Abbey Road".to_string(),
         artist: "The Beatles".to_string()
     };
-
     pub static ref ALBUM_RADIOACTIVITY: Album = Album {
         id: 3,
         name: "Radioactivity".to_string(),

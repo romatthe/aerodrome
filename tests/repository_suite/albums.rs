@@ -1,8 +1,8 @@
-use sqlx::{Pool, Sqlite, SqlitePool};
-use aerodrome_core::store::album::{AlbumSqliteRepo, AlbumRepository};
 use crate::repository_suite::albums_data::*;
-use futures::Future;
 use crate::repository_suite::utils::setup_connection;
+use aerodrome_core::store::album::{AlbumRepository, AlbumSqliteRepo};
+use futures::Future;
+use sqlx::{Pool, Sqlite, SqlitePool};
 
 #[tokio::test(flavor = "multi_thread")]
 async fn album_repo_when_inserted_should_be_fetched() {
