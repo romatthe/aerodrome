@@ -1,4 +1,4 @@
-INSERT INTO albums (name, artist)
+INSERT INTO album (name, artist)
 VALUES
     ("Sgt Peppers", "The Beatles"),
     ("Abbey Road", "The Beatles"),

@@ -4,12 +4,17 @@
 name = "aerodrome"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
+ "async-trait",
  "config",
  "env_logger",
  "futures",
+ "lazy_static",
  "log",
  "rocket",
+ "rocket_contrib",
  "serde 1.0.125",
+ "sql-builder",
  "sqlx",
  "tokio",
 ]
@@ -39,6 +44,12 @@ checksum = "7404febffaa47dac81aa44dba71523c9d069b1bdc50a77db41195149e17f68e5"
 dependencies = [
  "memchr",
 ]
+
+[[package]]
+name = "anyhow"
+version = "1.0.40"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "28b2cd92db5cbd74e8e5028f7e27dd7aa3090e89e4f2a197cc7c8dfb69c7063b"
 
 [[package]]
 name = "arrayvec"
@@ -1215,6 +1226,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "rocket_contrib"
+version = "0.5.0-dev"
+source = "git+https://github.com/SergioBenitez/Rocket#8d4d01106e2e10b08100805d40bfa19a7357e900"
+dependencies = [
+ "log",
+ "rocket",
+ "serde 1.0.125",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "rocket_http"
 version = "0.5.0-dev"
 source = "git+https://github.com/SergioBenitez/Rocket#8d4d01106e2e10b08100805d40bfa19a7357e900"
@@ -1422,6 +1445,16 @@ name = "spin"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6e63cff320ae2c57904679ba7cb63280a3dc4613885beafb148ee7bf9aa9042d"
+
+[[package]]
+name = "sql-builder"
+version = "3.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b1008d95d2ec2d062959352527be30e10fec42a1aa5e5a48d990a5ff0fb9bdc0"
+dependencies = [
+ "anyhow",
+ "thiserror",
+]
 
 [[package]]
 name = "sqlformat"

@@ -1,6 +1,6 @@
 create table if not exists album
 (
-    id int not null primary key,
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name varchar(255) default '' not null,
     artist varchar(255) default '' not null
 );

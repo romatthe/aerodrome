@@ -1,27 +1,20 @@
 use sqlx::{Pool, Sqlite, SqlitePool};
-use aerodrome_core::store::Repository;
-use aerodrome_core::store::album::AlbumRepository;
+use aerodrome_core::store::album::{AlbumSqliteRepo, AlbumRepository};
+use crate::repository_suite::albums_data::*;
 use futures::Future;
+use crate::repository_suite::utils::setup_connection;
 
-#[tokio::test]
-async fn test() {
-    let albums = utils::setup_connection().await;
+#[tokio::test(flavor = "multi_thread")]
+async fn album_repo_when_inserted_should_be_fetched() {
+    // Given
+    let mut pool = setup_connection().await;
+    let album_repo = AlbumSqliteRepo::new(pool.clone());
 
+    // When
+    let id = album_repo.save(&ALBUM_PEPPERS).await.unwrap();
 
-}
+    // Then
+    let result = album_repo.find_by_id(id).await.unwrap();
 
-mod utils {
-    use super::*;
-
-    pub async fn setup_connection() -> AlbumRepository<Sqlite> {
-        let mut pool = SqlitePool::connect("sqlite::memory:").await.unwrap();
-        let album_repo = AlbumRepository::new(pool.clone());
-
-        // Run the migrations
-        sqlx::migrate!("db/migrations").run(&pool).await.expect("Failed to run migrations!");
-        // Insert test data
-        sqlx::migrate!("db/tests").run(&pool).await.expect("Failed to run migrations!");
-
-        album_repo
-    }
+    assert_eq!(result, *ALBUM_PEPPERS);
 }

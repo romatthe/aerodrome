@@ -1,43 +1,30 @@
 use futures::FutureExt;
 use tokio::{signal, select};
 use crate::web::AerodromeWebServer;
-use sqlx::{Database, Pool};
-use crate::store::album::AlbumRepository;
-use crate::store::Repository;
-
-// pub type DbPool = Box<Pool<dyn Database>>;
+use sqlx::SqlitePool;
+use crate::store::album::AlbumSqliteRepo;
 
 /// The Aerodrome App runs all required services and background processes
-pub struct AerodromeApp<D: Database> {
-    web: AerodromeWebServer<D>,
-    // pool: Box<Pool<dyn Database>>,
+pub struct AerodromeApp {
+    web: AerodromeWebServer,
 }
 
-fn setup_db() -> Box<Pool<dyn Database>> {
-    todo!()
-}
-
-impl <D: Database> AerodromeApp<D> {
-    pub async fn init() -> Self
-        where <D as sqlx::Database>::Connection: sqlx::migrate::Migrate
-    {
+impl AerodromeApp {
+    pub async fn init() -> Self {
         // TODO: Proper error handling, use database string from configuration
-        let pool = Pool::connect("sqlite::memory:").await.unwrap();
+        let pool = SqlitePool::connect("sqlite::memory:").await.unwrap();
 
         // Repos
-        let album_repo = AlbumRepository::new(pool.clone());
+        let album_repo = AlbumSqliteRepo::new(pool.clone());
 
         // Run the migrations
-        sqlx::migrate!("db/migrations")
-            .run(&pool)
-            .await
-            .expect("Failed to run migrations!");
+        sqlx::migrate!("db/migrations").run(&pool).await.expect("Failed to run migrations!");
+        sqlx::migrate!("db/seed").run(&pool).await.expect("Failed to run migrations!");
 
         let web = AerodromeWebServer::init(album_repo);
 
         AerodromeApp {
-            web,
-            pool: Box::new(pool),
+            web
         }
     }
 

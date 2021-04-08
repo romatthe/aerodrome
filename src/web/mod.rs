@@ -1,15 +1,14 @@
-use sqlx::Database;
-use crate::store::album::AlbumRepository;
+use crate::store::album::AlbumSqliteRepo;
 
 mod aerodrome_api;
 mod subsonic_api;
 
-pub struct AerodromeWebServer<D: Database> {
-    albums: AlbumRepository<D>
+pub struct AerodromeWebServer {
+    albums: AlbumSqliteRepo
 }
 
-impl <D: Database> AerodromeWebServer<D> {
-    pub fn init(albums: AlbumRepository<D>) -> Self {
+impl AerodromeWebServer {
+    pub fn init(albums: AlbumSqliteRepo) -> Self {
         AerodromeWebServer {
             albums
         }
@@ -18,6 +17,8 @@ impl <D: Database> AerodromeWebServer<D> {
     pub fn run(self) -> rocket::Rocket {
         rocket::ignite()
             .manage(self.albums)
-            .mount("/hello", rocket::routes![aerodrome_api::world])
+            .mount("/albums", rocket::routes![
+                aerodrome_api::albums::get_album_by_id
+            ])
     }
 }
