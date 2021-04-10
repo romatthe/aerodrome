@@ -4,7 +4,7 @@ use sqlx::SqlitePool;
 
 #[async_trait::async_trait]
 pub trait AlbumRepository {
-    async fn find_by_id(&self, id: i64) -> anyhow::Result<Album>;
+    async fn find_by_id(&self, id: &str) -> anyhow::Result<Album>;
     async fn save(&self, album: &Album) -> anyhow::Result<i64>;
 }
 
@@ -20,7 +20,7 @@ impl AlbumSqliteRepo {
 
 #[async_trait::async_trait]
 impl AlbumRepository for AlbumSqliteRepo {
-    async fn find_by_id(&self, id: i64) -> anyhow::Result<Album> {
+    async fn find_by_id(&self, id: &str) -> anyhow::Result<Album> {
         let sql = SqlBuilder::select_from("album")
             .fields(&["id", "name", "artist"])
             .and_where_eq("id", "?")
@@ -33,11 +33,12 @@ impl AlbumRepository for AlbumSqliteRepo {
 
     async fn save(&self, album: &Album) -> anyhow::Result<i64> {
         let sql = SqlBuilder::insert_into("album")
-            .fields(&["name", "artist"])
-            .values(&["?", "?"])
+            .fields(&["id", "name", "artist"])
+            .values(&["?", "?", "?"])
             .sql()?;
 
         let id = sqlx::query(&sql)
+            .bind(&album.id)
             .bind(&album.name)
             .bind(&album.artist)
             .execute(&self.pool)

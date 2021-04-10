@@ -6,7 +6,7 @@ use rocket_contrib::json::Json;
 
 #[get("/<id>")]
 pub async fn get_album_by_id(
-    id: i64,
+    id: &str,
     albums: State<'_, AlbumSqliteRepo>,
 ) -> Result<Json<Album>, NotFound<String>> {
     albums

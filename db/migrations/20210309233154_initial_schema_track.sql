@@ -1,4 +1,4 @@
-CREATE TABLE track
+create table if not exists track
 (
     id varchar(255) not null primary key,
     title varchar(255) default '' not null,

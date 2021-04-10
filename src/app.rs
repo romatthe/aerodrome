@@ -3,6 +3,7 @@ use crate::web::AerodromeWebServer;
 use futures::FutureExt;
 use sqlx::SqlitePool;
 use tokio::{select, signal};
+use crate::store::track::TrackSqliteRepo;
 
 /// The Aerodrome App runs all required services and background processes
 pub struct AerodromeApp {
@@ -16,18 +17,19 @@ impl AerodromeApp {
 
         // Repos
         let album_repo = AlbumSqliteRepo::new(pool.clone());
+        let track_repo = TrackSqliteRepo::new(pool.clone());
 
         // Run the migrations
         sqlx::migrate!("db/migrations")
             .run(&pool)
             .await
             .expect("Failed to run migrations!");
-        sqlx::migrate!("db/seed")
-            .run(&pool)
-            .await
-            .expect("Failed to run migrations!");
+        // sqlx::migrate!("db/seed")
+        //     .run(&pool)
+        //     .await
+        //     .expect("Failed to run migrations!");
 
-        let web = AerodromeWebServer::init(album_repo);
+        let web = AerodromeWebServer::init(album_repo, track_repo);
 
         AerodromeApp { web }
     }

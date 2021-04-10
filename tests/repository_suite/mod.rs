@@ -1,11 +1,11 @@
 mod albums;
-mod albums_data;
+mod tracks;
 
 mod utils {
     use sqlx::SqlitePool;
 
     pub async fn setup_connection() -> SqlitePool {
-        let mut pool = SqlitePool::connect("sqlite::memory:").await.unwrap();
+        let pool = SqlitePool::connect("sqlite::memory:").await.unwrap();
 
         // Run the migrations
         sqlx::migrate!("db/migrations")
