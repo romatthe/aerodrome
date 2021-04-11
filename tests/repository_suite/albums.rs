@@ -1,6 +1,6 @@
-use aerodrome_core::store::album::{AlbumRepository, AlbumSqliteRepo};
-use aerodrome_core::model::album::Album;
 use crate::repository_suite::utils::setup_connection;
+use aerodrome_core::model::album::Album;
+use aerodrome_core::store::album::{AlbumRepository, AlbumSqliteRepo};
 
 #[tokio::test(flavor = "multi_thread")]
 async fn album_repo_when_inserted_should_be_fetched() {
@@ -12,7 +12,10 @@ async fn album_repo_when_inserted_should_be_fetched() {
     let _ = album_repo.save(&(*data::ALBUM_THRILLER)).await.unwrap();
 
     // Then
-    let result = album_repo.find_by_id(&data::ALBUM_THRILLER.id).await.unwrap();
+    let result = album_repo
+        .find_by_id(&data::ALBUM_THRILLER.id)
+        .await
+        .unwrap();
 
     assert_eq!(result, *data::ALBUM_THRILLER);
 }

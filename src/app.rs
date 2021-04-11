@@ -1,9 +1,9 @@
 use crate::store::album::AlbumSqliteRepo;
+use crate::store::track::TrackSqliteRepo;
 use crate::web::AerodromeWebServer;
 use futures::FutureExt;
 use sqlx::SqlitePool;
 use tokio::{select, signal};
-use crate::store::track::TrackSqliteRepo;
 
 /// The Aerodrome App runs all required services and background processes
 pub struct AerodromeApp {

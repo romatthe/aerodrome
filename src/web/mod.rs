@@ -22,11 +22,10 @@ impl AerodromeWebServer {
                 "/albums",
                 rocket::routes![aerodrome_api::albums::get_album_by_id],
             )
-            .mount("/tracks",
+            .mount(
+                "/tracks",
                 rocket::routes![aerodrome_api::tracks::get_track_by_id],
             )
-            .mount("/rest",
-                   rocket::routes![subsonic_api::browsing::get_song],
-            )
+            .mount("/rest", rocket::routes![subsonic_api::browsing::get_song])
     }
 }

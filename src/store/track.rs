@@ -1,6 +1,6 @@
 use crate::model::track::Track;
-use sqlx::SqlitePool;
 use sql_builder::SqlBuilder;
+use sqlx::SqlitePool;
 
 #[async_trait::async_trait]
 pub trait TrackRepository {
@@ -20,6 +20,7 @@ impl TrackSqliteRepo {
 
 #[async_trait::async_trait]
 impl TrackRepository for TrackSqliteRepo {
+    #[rustfmt::skip]
     async fn find_by_id(&self, id: &str) -> anyhow::Result<Track> {
         let sql = SqlBuilder::select_from("track")
             .fields(&[
@@ -40,6 +41,7 @@ impl TrackRepository for TrackSqliteRepo {
         Ok(track)
     }
 
+    #[rustfmt::skip]
     async fn save(&self, track: &Track) -> anyhow::Result<i64> {
         let sql = SqlBuilder::insert_into("track")
             .fields(&[

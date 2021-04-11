@@ -1,11 +1,14 @@
 use crate::model::track::Track;
-use crate::store::track::{TrackSqliteRepo, TrackRepository};
+use crate::store::track::{TrackRepository, TrackSqliteRepo};
 use rocket::response::status::NotFound;
 use rocket::{get, State};
 use rocket_contrib::json::Json;
 
 #[get("/<id>")]
-pub async fn get_track_by_id(id: &str, tracks: State<'_, TrackSqliteRepo>) -> Result<Json<Track>, NotFound<String>> {
+pub async fn get_track_by_id(
+    id: &str,
+    tracks: State<'_, TrackSqliteRepo>,
+) -> Result<Json<Track>, NotFound<String>> {
     tracks
         .find_by_id(id)
         .await

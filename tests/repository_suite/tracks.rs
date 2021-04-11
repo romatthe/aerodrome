@@ -1,8 +1,8 @@
 use crate::repository_suite::utils::setup_connection;
-use aerodrome_core::store::track::{TrackSqliteRepo, TrackRepository};
 use aerodrome_core::model::track::Track;
-use chrono::Utc;
+use aerodrome_core::store::track::{TrackRepository, TrackSqliteRepo};
 use chrono::TimeZone;
+use chrono::Utc;
 
 #[tokio::test(flavor = "multi_thread")]
 async fn track_repo_when_inserted_should_be_fetched() {
@@ -14,7 +14,10 @@ async fn track_repo_when_inserted_should_be_fetched() {
     let _ = track_repo.save(&(*data::TRACK_ROY_BATTY)).await.unwrap();
 
     // Then
-    let result = track_repo.find_by_id(&data::TRACK_ROY_BATTY.id).await.unwrap();
+    let result = track_repo
+        .find_by_id(&data::TRACK_ROY_BATTY.id)
+        .await
+        .unwrap();
 
     assert_eq!(result, *data::TRACK_ROY_BATTY);
 }
@@ -61,7 +64,8 @@ mod data {
             mbz_album_artist_id: "".to_string(),
             mbz_album_type: "".to_string(),
             mbz_album_comment: "".to_string(),
-            path: "/music/Grumbling Fur/2013 - glynnaestra/04 - The Ballad of Roy Batty.flac".to_string(),
+            path: "/music/Grumbling Fur/2013 - glynnaestra/04 - The Ballad of Roy Batty.flac"
+                .to_string(),
             created_at: Utc.ymd(2021, 04, 10).and_hms_milli(2, 21, 40, 555),
             updated_at: Utc.ymd(2021, 04, 10).and_hms_milli(2, 35, 31, 451),
         };
