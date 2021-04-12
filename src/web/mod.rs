@@ -26,6 +26,12 @@ impl AerodromeWebServer {
                 "/tracks",
                 rocket::routes![aerodrome_api::tracks::get_track_by_id],
             )
-            .mount("/rest", rocket::routes![subsonic_api::browsing::get_song])
+            .mount("/rest", rocket::routes![
+                // System
+                subsonic_api::system::ping,
+                subsonic_api::system::get_license,
+                // Browsing
+                subsonic_api::browsing::get_song,
+            ])
     }
 }

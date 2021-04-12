@@ -19,7 +19,7 @@ pub struct GetSongResponse {
 
 impl GetSongResponse {
     fn new(song: Child) -> Self {
-        GetSongResponse {
+        Self {
             xmlns: SUBSONIC_XMLNS,
             status: "ok",
             version: SUBSONIC_VERSION,
