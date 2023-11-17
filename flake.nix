@@ -1,11 +1,7 @@
 {
-  description = "Baby's first software renderer";
+  description = "Personal music streaming server, inspired by airsonic and navidrome";
    
   inputs = {
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -14,7 +10,7 @@
     utils.url = "github:numtide/flake-utils";
   };
   
-  outputs = { self, flake-compat, nixpkgs, rust-overlay, utils }:
+  outputs = { self, nixpkgs, rust-overlay, utils }:
     utils.lib.eachDefaultSystem (system:
       let
         overlays = [ (import rust-overlay) ];
