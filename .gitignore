@@ -1,3 +1,4 @@
 /target
 /.idea
-aerodrome.toml
+/.direnv
+/result

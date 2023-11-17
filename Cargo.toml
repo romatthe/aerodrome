@@ -1,45 +1,6 @@
 [package]
 name = "aerodrome"
 version = "0.1.0"
-authors = ["Robin Mattheussen <me@romatthe.dev>"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
-config = "0.11"
-serde = { version = "1.0.125", features = ["derive"] }
-lazy_static = "1.4.0"
-chrono = { version = "0.4", features = ["serde"] }
-
-# Logging
-log = "0.4.0"
-env_logger = "0.8.3"
-
-# Async
-async-trait = "0.1.48"
-futures = "0.3"
-tokio = { version = "1.4.0", features = ["full"] }
-
-# Web
-rocket = { git = "https://github.com/romatthe/Rocket", branch = "feature/contrib-xml" }
-#rocket = { path = "/home/romatthe/Source/rocket/core/lib", branch = "feature/contrib-xml" }
-rocket_contrib = { git = "https://github.com/romatthe/Rocket", branch = "feature/contrib-xml", features = ["json", "xml" ] }
-#rocket_contrib = { path = "/home/romatthe/Source/rocket/contrib/lib", branch = "feature/contrib-xml", features = ["json", "xml" ] }
-sqlx = { version = "0.5", features = [ "runtime-tokio-rustls", "sqlite", "migrate", "chrono" ] }
-sql-builder = "3.1"
-
-# Error handling
-anyhow = "1.0.40"
-
-mime_guess = "2.0.3"
-
-[lib]
-name = "aerodrome_core"
-path = "src/lib.rs"
-
-[[bin]]
-name = "aerodrome"
-path = "src/main.rs"
-
-[[test]]
-name = "integration"
-path = "tests/lib.rs"

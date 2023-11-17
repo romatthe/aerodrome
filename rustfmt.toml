@@ -1,7 +1,0 @@
-edition = "2018"
-group_imports = "StdExternalCrate"
-enum_discrim_align_threshold = 80
-struct_field_align_threshold = 80
-use_try_shorthand = true
-
-
